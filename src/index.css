@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuel Haus Design System - All colors MUST be HSL */
+
+@layer base {
+  :root {
+    /* Fuel Haus Brand Colors */
+    --background: 33 31% 69%; /* Warm tan #c9b399 */
+    --foreground: 0 0% 11%; /* Charcoal #1c1c1c */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 11%;
+
+    /* Primary: Rich brown #8b5e46 */
+    --primary: 24 33% 41%;
+    --primary-foreground: 32 33% 96%;
+
+    /* Secondary: Warm cream #d8c5b1 */
+    --secondary: 32 32% 77%;
+    --secondary-foreground: 0 0% 11%;
+
+    --muted: 33 31% 75%;
+    --muted-foreground: 0 0% 30%;
+
+    /* Accent: Deep chocolate brown #5c3d2e */
+    --accent: 20 33% 27%;
+    --accent-foreground: 32 33% 96%;
+    
+    /* Brand: Warm tan #c9b399 - for branding elements */
+    --brand: 33 31% 69%;
+    --brand-foreground: 0 0% 11%;
+    
+    /* Gradient colors for warm brown gradient */
+    --gradient-from: 24 33% 41%; /* Rich brown */
+    --gradient-to: 20 33% 27%; /* Deep chocolate */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 32 33% 96%;
+
+    --border: 33 25% 80%;
+    --input: 33 25% 80%;
+    --ring: 24 33% 41%;
+
+    --radius: 0.75rem; /* 12px for rounded corners */
+    
+    /* Shadows */
+    --shadow-subtle: 0 10px 35px -5px hsl(0 0% 0% / 0.05);
+
+    --sidebar-background: 32 33% 96%;
+    --sidebar-foreground: 257 17% 21%;
+    --sidebar-primary: 24 33% 41%;
+    --sidebar-primary-foreground: 32 33% 96%;
+    --sidebar-accent: 32 32% 77%;
+    --sidebar-accent-foreground: 257 17% 21%;
+    --sidebar-border: 32 20% 88%;
+    --sidebar-ring: 24 33% 41%;
+  }
+
+  .dark {
+    --background: 257 17% 21%;
+    --foreground: 32 33% 96%;
+
+    --card: 257 17% 21%;
+    --card-foreground: 32 33% 96%;
+
+    --popover: 257 17% 21%;
+    --popover-foreground: 32 33% 96%;
+
+    --primary: 32 32% 77%;
+    --primary-foreground: 257 17% 21%;
+
+    --secondary: 24 33% 41%;
+    --secondary-foreground: 32 33% 96%;
+
+    --muted: 257 15% 30%;
+    --muted-foreground: 32 20% 70%;
+
+    --accent: 20 33% 27%;
+    --accent-foreground: 32 33% 96%;
+    
+    --brand: 33 31% 69%;
+    --brand-foreground: 257 17% 21%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 32 33% 96%;
+
+    --border: 257 15% 30%;
+    --input: 257 15% 30%;
+    --ring: 32 32% 77%;
+
+    --sidebar-background: 257 17% 21%;
+    --sidebar-foreground: 32 33% 96%;
+    --sidebar-primary: 32 32% 77%;
+    --sidebar-primary-foreground: 257 17% 21%;
+    --sidebar-accent: 257 15% 30%;
+    --sidebar-accent-foreground: 32 33% 96%;
+    --sidebar-border: 257 15% 30%;
+    --sidebar-ring: 32 32% 77%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-weight: 300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+  }
+}
+
+@layer utilities {
+  .gradient-accent {
+    background: linear-gradient(320deg, hsl(var(--gradient-from)), hsl(var(--gradient-to)));
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(320deg, hsl(var(--gradient-from)), hsl(var(--gradient-to)));
+  }
+  
+  .shadow-subtle {
+    box-shadow: var(--shadow-subtle);
+  }
+  
+  /* Mobile touch optimization */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Accessibility: Skip to main content */
+  .skip-to-main {
+    @apply absolute -top-10 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-lg;
+    @apply focus:top-4 transition-all;
+  }
+}
+
+/* Improve focus visibility for accessibility */
+@layer base {
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+  
+  /* Ensure smooth scrolling on iOS */
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent text size adjustment on iOS */
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+}
