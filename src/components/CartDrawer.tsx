@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 import {
   Sheet,
   SheetContent,
@@ -35,6 +36,7 @@ export const CartDrawer = () => {
       }
     } catch (error) {
       console.error('Checkout failed:', error);
+      toast.error('Failed to create checkout. Please try again.');
     }
   };
 

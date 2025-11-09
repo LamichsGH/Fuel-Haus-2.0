@@ -124,10 +124,9 @@ export const useCartStore = create<CartStore>()(
 
         setLoading(true);
         try {
-          // Mock checkout URL for demo purposes
-          // Replace with your actual e-commerce integration
-          const mockCheckoutUrl = '/checkout';
-          setCheckoutUrl(mockCheckoutUrl);
+          const { createStorefrontCheckout } = await import('@/lib/shopify');
+          const checkoutUrl = await createStorefrontCheckout(items);
+          setCheckoutUrl(checkoutUrl);
         } catch (error) {
           console.error('Failed to create checkout:', error);
         } finally {
