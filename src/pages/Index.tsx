@@ -196,8 +196,8 @@ export default function Index() {
         <Hero />
         <ProductShowcase />
         <ValueProps />
-        <SeasonalDrinks />
         <SocialProof />
+        <SeasonalDrinks />
         <HowItWorks />
         <FAQ />
         <Newsletter />
