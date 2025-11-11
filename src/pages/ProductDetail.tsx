@@ -241,6 +241,68 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
+
+        {/* Not Your Average Hot Chocolate Section */}
+        <section className="py-16 bg-secondary/10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Not Your Average Hot Chocolate
+                </h2>
+              </div>
+
+              <div className="bg-card rounded-xl p-8 md:p-12 shadow-subtle">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-primary text-sm">✓</span>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Hydrates & restores with essential electrolytes
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-primary text-sm">✓</span>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Supports calm recovery after workouts or long days
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-primary text-sm">✓</span>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Indulges smarter with organic cacao and natural coconut sweetness
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-primary text-sm">✓</span>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Balances body and mind — rich in minerals, low in sugar
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-primary text-sm">✓</span>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Smooth, silky texture that blends easily with water or your favourite milk
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
