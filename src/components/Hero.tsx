@@ -7,10 +7,10 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-secondary/30 to-background overflow-hidden">
+    <section className="relative min-h-[500px] flex items-center justify-center bg-gradient-to-br from-secondary/30 to-background overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=2574')] bg-cover bg-center opacity-10" />
       
-      <div className="container mx-auto px-4 py-20 relative z-10">
+      <div className="container mx-auto px-4 py-12 md:py-16 relative z-10">
         <div className="max-w-3xl mx-auto text-center animate-fade-in">
           <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <p className="text-sm text-muted-foreground">Loved by our first 50 testers</p>
