@@ -1,23 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Award, Users, CheckCircle2, Leaf } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import cocoaLifestyle from "@/assets/cocoa-lifestyle.webp";
+import { CheckCircle2, Leaf, Award, Users } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sarah M.",
-    rating: 5,
-    text: "Finally, a hot chocolate I can feel good about. The perfect evening ritual."
+    text: "Oh wow, this is the best hot chocolate I've ever tried! The subtle taste of coconut and the creaminess were perfectly balanced — the perfect post-run treat. I had mine with pistachio oat milk… heaven! You've created something magical in this mix. The cocoa is smooth and mellow, the packaging is awesome, and the taste is a 10/10. Please don't change a thing!"
   },
   {
-    name: "Mike T.",
-    rating: 5,
-    text: "Tastes amazing and actually helps with recovery after workouts."
+    text: "Loved that I could really taste the cocoa — rich and authentic. My partner prefers it sweeter, but for me it was perfect. So satisfying after a long bike ride"
   },
   {
-    name: "Emma L.",
-    rating: 5,
-    text: "Sold out for a reason. This is the real deal."
+    text: "So easy to mix and silky smooth — great taste too"
+  },
+  {
+    text: "I really love the taste! Most healthier hot chocolates aren't sweet enough for me, but this one is perfectly balanced. It's smooth, easy to mix — no lumps, even with a spoon — and I like that it's made with healthier, more natural ingredients. I also like that you used magnesium glycinate specifically — I find that this form helps with not causing me digestive issues"
   }
 ];
 
@@ -35,7 +30,7 @@ export const SocialProof = () => {
         <div className="max-w-6xl mx-auto">
           {/* Main headline */}
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl mb-4">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl mb-4 font-bold">
               The First Drop Sold Out
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground">
@@ -43,44 +38,19 @@ export const SocialProof = () => {
             </p>
           </div>
 
-          {/* Two-column layout */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            {/* Left: Lifestyle image */}
-            <div className="relative">
-              <Card className="overflow-hidden border-0 shadow-subtle rounded-xl">
-                <div className="aspect-[4/5]">
-                  <img 
-                    src={cocoaLifestyle} 
-                    alt="Cocoa powder in a mug - artisan recovery drink"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+          {/* Testimonials Grid - 2 columns on desktop */}
+          <div className="grid md:grid-cols-2 gap-6 mb-16">
+            {testimonials.map((testimonial, index) => (
+              <Card 
+                key={index}
+                className="border-0 bg-background shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardContent className="p-6">
+                  <p className="text-foreground leading-relaxed italic">"{testimonial.text}"</p>
+                </CardContent>
               </Card>
-              <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-2 text-base shadow-lg">
-                Sold Out
-              </Badge>
-            </div>
-
-            {/* Right: Testimonials */}
-            <div className="space-y-6">
-              {testimonials.map((testimonial, index) => (
-                <Card 
-                  key={index}
-                  className="border-0 bg-background shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-1 mb-3">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <p className="text-foreground mb-4 leading-relaxed">"{testimonial.text}"</p>
-                    <p className="text-sm text-muted-foreground font-medium">— {testimonial.name}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            ))}
           </div>
 
           {/* Trust indicators */}
