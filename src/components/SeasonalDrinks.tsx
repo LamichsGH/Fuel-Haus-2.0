@@ -1,29 +1,37 @@
 import { Card, CardContent } from "@/components/ui/card";
+import seasonal1 from "@/assets/seasonal-1.png";
+import seasonal2 from "@/assets/seasonal-2.png";
+import seasonal3 from "@/assets/seasonal-3.png";
+import seasonal4 from "@/assets/seasonal-4.png";
 
 const seasons = [
   {
     season: "Winter",
     name: "Recovery Cocoa",
     description: "Comforting warmth meets deep hydration",
-    color: "from-amber-900/30 to-orange-800/20"
+    color: "from-amber-900/30 to-orange-800/20",
+    image: seasonal1
   },
   {
     season: "Spring",
     name: "Restore Latte",
     description: "Smooth energy and grounding calm",
-    color: "from-amber-100/50 to-yellow-50/30"
+    color: "from-amber-100/50 to-yellow-50/30",
+    image: seasonal2
   },
   {
     season: "Summer",
     name: "Hydration Elixir",
     description: "Cool, light, and mineral-rich refreshment",
-    color: "from-cyan-100/40 to-teal-50/30"
+    color: "from-cyan-100/40 to-teal-50/30",
+    image: seasonal3
   },
   {
     season: "Autumn",
     name: "Rebalance Chai",
     description: "Spice, calm, and gentle renewal",
-    color: "from-orange-200/40 to-amber-100/30"
+    color: "from-orange-200/40 to-amber-100/30",
+    image: seasonal4
   }
 ];
 
@@ -50,9 +58,13 @@ export const SeasonalDrinks = () => {
                 className="border-0 bg-card shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Drink Image Placeholder */}
-                <div className={`aspect-square bg-gradient-to-br ${drink.color} flex items-center justify-center`}>
-                  <div className="text-6xl opacity-30">☕</div>
+                {/* Drink Image */}
+                <div className="aspect-square overflow-hidden">
+                  <img 
+                    src={drink.image} 
+                    alt={`${drink.season} - ${drink.name}`}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 {/* Content */}
