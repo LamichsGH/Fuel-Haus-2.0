@@ -18,6 +18,21 @@ export default function ProductDetail() {
   useEffect(() => {
     if (handle) {
       loadProduct();
+    } else {
+      // If no handle, create a default Recovery Cocoa product
+      const defaultProduct = {
+        id: "recovery-cocoa",
+        title: "Recovery Cocoa",
+        handle: "recovery-cocoa",
+        description: "FuelHaus blends real cocoa with electrolytes and magnesium for hydration and calm",
+        images: [],
+        price: { amount: "21.99", currencyCode: "£" },
+        variants: [{ id: "default", title: "Default", availableForSale: true, price: { amount: "21.99", currencyCode: "£" }, selectedOptions: [] }],
+        options: []
+      };
+      setProduct(defaultProduct);
+      setSelectedVariant(defaultProduct.variants[0]);
+      setLoading(false);
     }
   }, [handle]);
 

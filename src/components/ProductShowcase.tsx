@@ -30,7 +30,7 @@ export const ProductShowcase = () => {
               <Button
                 size="lg"
                 className="w-full max-w-xs rounded-xl text-lg font-semibold"
-                onClick={() => navigate('/product-detail')}
+                onClick={() => navigate('/product/recovery-cocoa')}
               >
                 Shop now
               </Button>
