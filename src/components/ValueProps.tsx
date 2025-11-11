@@ -1,21 +1,21 @@
-import { Leaf, Heart, Sparkles } from "lucide-react";
+import { Leaf, Coffee, Scale } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const values = [
   {
     icon: Leaf,
-    title: "Clean Ingredients",
-    description: "Made from 8 real ingredients. No gums, no fillers, no nonsense",
+    title: "Clean, Honest Ingredients",
+    description: "Made with real, natural ingredients — organic wherever possible — because better hydration starts clean",
   },
   {
-    icon: Heart,
+    icon: Coffee,
     title: "Healthy Indulgence",
-    description: "A hot chocolate that nourishes and hydrates",
+    description: "Tastes like a treat, nourishes like a ritual. You'll think you're indulging — your body knows better",
   },
   {
-    icon: Sparkles,
-    title: "Light Nutrition",
-    description: "118 calories of calm energy and recovery",
+    icon: Scale,
+    title: "Balanced Nourishment",
+    description: "Low in calories, rich in feel-good balance — just enough to restore, never enough to weigh you down",
   },
 ];
 
@@ -25,7 +25,7 @@ export const ValueProps = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl mb-4">
-            Made for how recovery should feel
+            Designed to Hydrate Softly
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
