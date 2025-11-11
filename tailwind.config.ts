@@ -14,17 +14,17 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'SF Pro Text', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
       },
       fontSize: {
-        'xs': '0.875rem',    /* 14px */
-        'sm': '1rem',        /* 16px */
-        'base': '1.125rem',  /* 18px */
-        'lg': '1.375rem',    /* 22px */
-        'xl': '1.75rem',     /* 28px */
-        '2xl': '2.25rem',    /* 36px */
-        '3xl': '3rem',       /* 48px */
-        '4xl': '4rem',       /* 64px */
+        'xs': ['0.875rem', { lineHeight: '1.6' }],     /* 14px */
+        'sm': ['1rem', { lineHeight: '1.6' }],         /* 16px */
+        'base': ['1.125rem', { lineHeight: '1.6' }],   /* 18px */
+        'lg': ['1.375rem', { lineHeight: '1.6' }],     /* 22px */
+        'xl': ['1.75rem', { lineHeight: '1.35' }],     /* 28px */
+        '2xl': ['2.25rem', { lineHeight: '1.35' }],    /* 36px */
+        '3xl': ['3rem', { lineHeight: '1.35' }],       /* 48px */
+        '4xl': ['4rem', { lineHeight: '1.35' }],       /* 64px */
       },
       colors: {
         border: "hsl(var(--border))",
