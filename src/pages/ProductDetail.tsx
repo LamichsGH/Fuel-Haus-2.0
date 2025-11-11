@@ -12,6 +12,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariant, setSelectedVariant] = useState<any>(null);
+  const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore(state => state.addItem);
 
   useEffect(() => {
@@ -37,19 +38,19 @@ export default function ProductDetail() {
   };
 
   const handleAddToCart = () => {
-    if (!product || !selectedVariant) return;
+    if (!product) return;
 
     const cartItem = {
-      product: product,
-      variantId: selectedVariant.id,
-      variantTitle: selectedVariant.title,
-      price: selectedVariant.price,
-      quantity: 1,
-      selectedOptions: selectedVariant.selectedOptions || []
+      product: { ...product, title: "Recovery Cocoa" },
+      variantId: selectedVariant?.id || "default",
+      variantTitle: `${quantity} Bag${quantity > 1 ? 's' : ''}`,
+      price: { amount: "21.99", currencyCode: "£" },
+      quantity: quantity,
+      selectedOptions: []
     };
-    
+
     addItem(cartItem);
-    toast.success('Added to cart', { position: 'top-center' });
+    toast.success(`Added ${quantity} bag${quantity > 1 ? 's' : ''} to cart`, { position: 'top-center' });
   };
 
   if (loading) {
@@ -111,62 +112,81 @@ export default function ProductDetail() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">{product.title}</h1>
-              <p className="text-3xl font-semibold text-primary">
-                {product.price.currencyCode}{' '}
-                {parseFloat(product.price.amount).toFixed(2)}
-              </p>
+            {/* Social Proof Badge */}
+            <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 w-fit">
+              <p className="text-sm text-muted-foreground">Loved by our first 50 testers</p>
             </div>
 
-            {product.description && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Description</h2>
-                <p className="text-muted-foreground">{product.description}</p>
+            {/* Product Title */}
+            <h1 className="text-4xl font-bold">Recovery Cocoa</h1>
+
+            {/* Pricing */}
+            <div className="flex items-center gap-3">
+              <span className="text-3xl font-semibold text-primary">£21.99</span>
+              <span className="text-xl text-muted-foreground line-through">£24.99</span>
+            </div>
+
+            {/* Product Benefits */}
+            <div>
+              <h2 className="text-lg font-semibold mb-3">Benefits</h2>
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-primary mt-2">•</span>
+                  <span>Hydrates & restores with essential electrolytes</span>
+                </li>
+                <li className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-primary mt-2">•</span>
+                  <span>Supports calm recovery after workouts or long days</span>
+                </li>
+                <li className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-primary mt-2">•</span>
+                  <span>Indulges smarter with organic cacao and natural coconut sweetness</span>
+                </li>
+                <li className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-primary mt-2">•</span>
+                  <span>Balances body and mind — rich in minerals, low in sugar</span>
+                </li>
+                <li className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-primary mt-2">•</span>
+                  <span>Smooth, silky texture that blends easily with water or your favourite milk</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Quantity Display */}
+            <div>
+              <h3 className="text-lg font-semibold mb-3">Quantity</h3>
+              <div className="p-4 bg-secondary/30 rounded-lg">
+                <p className="font-medium">1 Bag (10 Servings)</p>
               </div>
-            )}
+            </div>
 
-            {product.options && product.options.length > 0 && (
-              <div className="space-y-4">
-                {product.options.map((option: any) => (
-                  <div key={option.name}>
-                    <label className="text-sm font-medium mb-2 block">{option.name}</label>
-                    <div className="flex gap-2 flex-wrap">
-                      {option.values.map((value: string) => {
-                        const variant = product.variants.find((v: any) =>
-                          v.selectedOptions.some((o: any) => o.name === option.name && o.value === value)
-                        );
-                        
-                        const isSelected = selectedVariant?.selectedOptions.some(
-                          (o: any) => o.name === option.name && o.value === value
-                        );
-
-                        return (
-                          <Button
-                            key={value}
-                            variant={isSelected ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => variant && setSelectedVariant(variant)}
-                            disabled={!variant?.availableForSale}
-                          >
-                            {value}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                  </div>
+            {/* Number of Bags Selector */}
+            <div>
+              <h3 className="text-lg font-semibold mb-3">Number of Bags</h3>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <Button
+                    key={num}
+                    variant={quantity === num ? "default" : "outline"}
+                    size="sm"
+                    className="w-12 h-12"
+                    onClick={() => setQuantity(num)}
+                  >
+                    {num}
+                  </Button>
                 ))}
               </div>
-            )}
+            </div>
 
+            {/* Add to Cart Button */}
             <Button
               size="lg"
               className="w-full rounded-xl"
               onClick={handleAddToCart}
-              disabled={!selectedVariant?.availableForSale}
             >
               <ShoppingCart className="w-5 h-5 mr-2" />
-              {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
+              Add to Cart
             </Button>
             
             <div className="pt-6 border-t">
