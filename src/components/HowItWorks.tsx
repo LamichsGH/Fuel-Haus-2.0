@@ -5,26 +5,26 @@ const steps = [
   {
     icon: Coffee,
     number: "01",
-    title: "Prepare Your Ritual",
-    description: "Add 2 tablespoons to 8oz of hot water or your favorite milk. Stir gently and watch it transform into a rich, creamy hot chocolate."
+    title: "Step 1",
+    description: "Add 40g of Recovery Cocoa to your favorite mug."
   },
   {
     icon: Clock,
     number: "02",
-    title: "Find Your Moment",
-    description: "Best enjoyed in the evening after workouts, or any time you need restoration. Create your quiet moment of calm."
+    title: "Step 2",
+    description: "Pour in 250ml of hot water — milk optional, or use your favorite plant-based alternative"
   },
   {
     icon: Heart,
     number: "03",
-    title: "Restore & Nourish",
-    description: "Let the organic cacao, electrolytes, and minerals work together to support your recovery while you savor every sip."
+    title: "Step 3",
+    description: "Stir well — it mixes smoothly with a spoon, but a frother makes it velvet-smooth."
   },
   {
     icon: Sparkles,
     number: "04",
-    title: "Make It Your Own",
-    description: "Customize with honey, cinnamon, or extra foam. There's no wrong way to enjoy your ritual."
+    title: "Step 4",
+    description: "Take a moment, sip slowly, and enjoy your calm."
   }
 ];
 
@@ -35,7 +35,7 @@ export const HowItWorks = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl mb-4">
-              Your Ritual, Simplified
+              Your Moment, Made Simple
             </h2>
             <p className="text-lg text-muted-foreground">
               Four simple steps to restoration and calm
