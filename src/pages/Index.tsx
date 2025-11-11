@@ -193,7 +193,7 @@ export default function Index() {
 
       <main>
         <Hero />
-        <ProductShowcase />
+        <ProductShowcase products={filteredProducts} loading={loading} searchQuery={searchQuery} />
         <ValueProps />
         <SocialProof />
         <HowItWorks />
