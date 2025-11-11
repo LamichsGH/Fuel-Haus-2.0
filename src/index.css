@@ -6,50 +6,58 @@
 
 @layer base {
   :root {
-    /* Fuel Haus Brand Colors */
-    --background: 33 31% 69%; /* Warm tan #c9b399 */
+    /* Fuel Haus Brand Colors - Exact palette match */
+    --background: 32 38% 77%; /* Warm beige #d8c5b1 */
     --foreground: 0 0% 11%; /* Charcoal #1c1c1c */
 
-    --card: 0 0% 100%;
+    --card: 32 43% 95%; /* Cream #f5efea */
     --card-foreground: 0 0% 11%;
 
-    --popover: 0 0% 100%;
+    --popover: 32 43% 95%;
     --popover-foreground: 0 0% 11%;
 
     /* Primary: Rich brown #8b5e46 */
     --primary: 24 33% 41%;
-    --primary-foreground: 32 33% 96%;
+    --primary-foreground: 32 43% 95%;
 
-    /* Secondary: Warm cream #d8c5b1 */
-    --secondary: 32 32% 77%;
+    /* Secondary: Warm beige #d8c5b1 */
+    --secondary: 32 38% 77%;
     --secondary-foreground: 0 0% 11%;
 
-    --muted: 33 31% 75%;
+    /* Muted: Sage gray #c7cbc1 */
+    --muted: 90 8% 78%;
     --muted-foreground: 0 0% 30%;
 
-    /* Accent: Deep chocolate brown #5c3d2e */
-    --accent: 20 33% 27%;
-    --accent-foreground: 32 33% 96%;
+    /* Accent: Deep chocolate brown */
+    --accent: 24 33% 41%;
+    --accent-foreground: 32 43% 95%;
     
-    /* Brand: Warm tan #c9b399 - for branding elements */
-    --brand: 33 31% 69%;
+    /* Brand: Warm beige - for branding elements */
+    --brand: 32 38% 77%;
     --brand-foreground: 0 0% 11%;
+    
+    /* Ingredient section specific colors */
+    --ingredient-bg: 32 38% 77%; /* Warm beige background */
+    --ingredient-card: 32 43% 95%; /* Cream card background */
+    --ingredient-icon-bg: 32 43% 95%; /* Cream icon background */
+    --ingredient-icon: 24 33% 41%; /* Brown icon color */
     
     /* Gradient colors for warm brown gradient */
     --gradient-from: 24 33% 41%; /* Rich brown */
-    --gradient-to: 20 33% 27%; /* Deep chocolate */
+    --gradient-to: 32 38% 77%; /* Warm beige */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 32 33% 96%;
+    --destructive-foreground: 32 43% 95%;
 
-    --border: 33 25% 80%;
-    --input: 33 25% 80%;
+    --border: 90 8% 78%;
+    --input: 90 8% 78%;
     --ring: 24 33% 41%;
 
-    --radius: 0.75rem; /* 12px for rounded corners */
+    --radius: 1rem; /* 16px for softer rounded corners */
     
-    /* Shadows */
-    --shadow-subtle: 0 10px 35px -5px hsl(0 0% 0% / 0.05);
+    /* Shadows - enhanced for depth */
+    --shadow-subtle: 0 10px 35px -5px hsl(0 0% 0% / 0.08);
+    --shadow-card: 0 20px 60px -10px hsl(24 33% 41% / 0.15);
 
     --sidebar-background: 32 33% 96%;
     --sidebar-foreground: 257 17% 21%;
@@ -131,6 +139,10 @@
   
   .shadow-subtle {
     box-shadow: var(--shadow-subtle);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
   }
   
   /* Mobile touch optimization */

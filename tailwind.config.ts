@@ -18,9 +18,10 @@ export default {
       },
       colors: {
         border: "hsl(var(--border))",
-        'cream': 'hsl(var(--secondary))',
+        'cream': 'hsl(var(--card))',
+        'beige': 'hsl(var(--secondary))',
         'brown': 'hsl(var(--primary))',
-        'purple-deep': 'hsl(var(--accent))',
+        'sage': 'hsl(var(--muted))',
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -48,6 +49,12 @@ export default {
         brand: {
           DEFAULT: "hsl(var(--brand))",
           foreground: "hsl(var(--brand-foreground))",
+        },
+        ingredient: {
+          bg: "hsl(var(--ingredient-bg))",
+          card: "hsl(var(--ingredient-card))",
+          'icon-bg': "hsl(var(--ingredient-icon-bg))",
+          icon: "hsl(var(--ingredient-icon))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
