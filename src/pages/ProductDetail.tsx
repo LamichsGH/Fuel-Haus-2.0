@@ -137,10 +137,11 @@ export default function ProductDetail() {
               Back to Store
             </Button>
           </Link>
-          <div className="flex items-center gap-3">
-            <div className="text-2xl">☕</div>
-            <span className="font-bold text-xl">Fuel Haus</span>
-          </div>
+          <img 
+            src="/logo.png?v=4" 
+            alt="Fuel Haus" 
+            className="h-28 md:h-32 w-auto object-contain"
+          />
           <CartDrawer />
         </div>
       </header>
