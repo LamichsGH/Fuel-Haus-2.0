@@ -122,10 +122,29 @@ export const useCartStore = create<CartStore>()(
         const { items, setLoading, setCheckoutUrl } = get();
         if (items.length === 0) return;
 
+        // Filter out items with invalid Shopify variant IDs (must start with gid://shopify/)
+        const validItems = items.filter(item => 
+          item.variantId.startsWith('gid://shopify/ProductVariant/')
+        );
+
+        // Remove invalid items from cart
+        const invalidItems = items.filter(item => 
+          !item.variantId.startsWith('gid://shopify/ProductVariant/')
+        );
+        if (invalidItems.length > 0) {
+          set({ items: validItems });
+          console.log('Removed invalid cart items:', invalidItems.length);
+        }
+
+        if (validItems.length === 0) {
+          console.error('No valid items in cart for checkout');
+          return;
+        }
+
         setLoading(true);
         try {
           const { createStorefrontCheckout } = await import('@/lib/shopify');
-          const checkoutUrl = await createStorefrontCheckout(items);
+          const checkoutUrl = await createStorefrontCheckout(validItems);
           setCheckoutUrl(checkoutUrl);
         } catch (error) {
           console.error('Failed to create checkout:', error);
