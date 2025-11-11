@@ -6,10 +6,6 @@
 
 @layer base {
   :root {
-    /* Header spacing tokens */
-    --header-pt: clamp(8px, 2vh, 16px);
-    --header-pb: clamp(4px, 1vh, 8px);
-
     /* Core Brand Colors */
     --primary: 24 33% 41%;           /* #8b5e46 cocoa brown */
     --primary-hover: 24 34% 36%;     /* #7b513d hover state */
@@ -153,17 +149,6 @@
       padding-top: 0;
     }
   }
-}
-
-/* Header spacing utility classes */
-.header-wrap {
-  padding-block-start: calc(var(--header-pt) + env(safe-area-inset-top));
-  padding-block-end: var(--header-pb);
-}
-
-.header-wrap.is-compact {
-  padding-block-start: calc(clamp(12px, 2vh, 24px) + env(safe-area-inset-top));
-  padding-block-end: clamp(8px, 1.2vh, 16px);
 }
 
 @layer utilities {
