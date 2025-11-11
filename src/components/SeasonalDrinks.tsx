@@ -47,7 +47,7 @@ export const SeasonalDrinks = () => {
             {seasons.map((drink, index) => (
               <Card
                 key={index}
-                className="border-0 bg-background shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl overflow-hidden"
+                className="border-0 bg-card shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Drink Image Placeholder */}

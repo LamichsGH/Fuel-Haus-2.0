@@ -32,7 +32,7 @@ export const ValueProps = () => {
           {values.map((value, index) => (
             <Card 
               key={index} 
-              className="border-0 bg-secondary/10 hover:bg-secondary/20 transition-all duration-300 shadow-subtle hover:shadow-xl animate-fade-in rounded-xl"
+              className="border-0 bg-card hover:bg-card/90 transition-all duration-300 shadow-subtle hover:shadow-xl animate-fade-in rounded-xl"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardContent className="p-8 text-center">

@@ -43,7 +43,7 @@ export const SocialProof = () => {
             {testimonials.map((testimonial, index) => (
               <Card 
                 key={index}
-                className="border-0 bg-background shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl"
+                className="border-0 bg-card shadow-subtle hover:shadow-xl transition-all duration-300 animate-fade-in rounded-xl"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-6">
@@ -58,7 +58,7 @@ export const SocialProof = () => {
             {trustIndicators.map((indicator, index) => (
               <Card 
                 key={index}
-                className="border-0 bg-secondary/10 hover:bg-secondary/20 transition-all duration-300 shadow-subtle rounded-xl"
+                className="border-0 bg-card hover:bg-card/90 transition-all duration-300 shadow-subtle rounded-xl"
               >
                 <CardContent className="p-6 text-center">
                   <indicator.icon className="h-8 w-8 mx-auto mb-3 text-primary" strokeWidth={1.5} />
