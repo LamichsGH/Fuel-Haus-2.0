@@ -8,7 +8,7 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-secondary/30 to-background overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=2574')] bg-cover bg-center opacity-10" />
+      <div className="absolute inset-0 bg-[url('/src/assets/hero-background.png')] bg-cover bg-center opacity-10" />
       
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="max-w-3xl mx-auto text-center animate-fade-in">
