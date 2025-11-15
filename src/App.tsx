@@ -94,7 +94,7 @@ const App = () => {
           <Sonner />
           <Router>
             <Routes>
-              <Route path="/" element={<MinimalTest />} />
+              <Route path="/" element={<Index />} />
               <Route path="/product/:handle" element={<ProductDetail />} />
               <Route path="/product-detail" element={<ProductDetail />} />
               <Route path="/ingredients" element={<Ingredients />} />
