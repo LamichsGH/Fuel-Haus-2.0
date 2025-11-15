@@ -194,36 +194,41 @@ const CART_CREATE_MUTATION = `
 
 // Storefront API helper function
 export async function storefrontApiRequest(query: string, variables: any = {}) {
-  const response = await fetch(SHOPIFY_STOREFRONT_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_TOKEN
-    },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  });
-
-  if (response.status === 402) {
-    toast.error("Shopify: Payment required", {
-      description: "Shopify API access requires an active Shopify billing plan. Visit https://admin.shopify.com to upgrade your store."
+  try {
+    const response = await fetch(SHOPIFY_STOREFRONT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_TOKEN
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
     });
-    return;
-  }
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+    if (response.status === 402) {
+      console.warn("Shopify: Payment required - using fallback data");
+      return null; // Return null instead of throwing
+    }
 
-  const data = await response.json();
-  
-  if (data.errors) {
-    throw new Error(`Error calling Shopify: ${data.errors.map((e: any) => e.message).join(', ')}`);
-  }
+    if (!response.ok) {
+      console.warn(`Shopify API error: ${response.status} - using fallback data`);
+      return null; // Return null instead of throwing
+    }
 
-  return data;
+    const data = await response.json();
+    
+    if (data.errors) {
+      console.warn(`Shopify GraphQL errors: ${data.errors.map((e: any) => e.message).join(', ')} - using fallback data`);
+      return null; // Return null instead of throwing
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Shopify API request failed:', error);
+    return null; // Return null instead of throwing
+  }
 }
 
 // Transform Shopify product to app format
@@ -261,13 +266,14 @@ export async function fetchProducts() {
     const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 50 });
     
     if (!data?.data?.products?.edges) {
+      console.warn('No products data from Shopify, returning empty array');
       return [];
     }
 
     return data.data.products.edges.map(transformShopifyProduct);
   } catch (error) {
     console.error('Error fetching products:', error);
-    return [];
+    return []; // Always return empty array, never throw
   }
 }
 

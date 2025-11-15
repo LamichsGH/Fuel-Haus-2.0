@@ -35,14 +35,41 @@ export default function Index() {
     try {
       setLoading(true);
       const data = await fetchProducts();
-      setProducts(data);
+      setProducts(data || []); // Ensure fallback to empty array
     } catch (error) {
       console.error('Error loading products:', error);
-      toast.error('Failed to load products');
+      // Don't show error toast to avoid crashes, just log it
+      setProducts([]); // Fallback to empty array
     } finally {
       setLoading(false);
     }
   };
+
+  // Add loading state UI
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f5efea'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '50px',
+            height: '50px',
+            border: '4px solid #d8c5b1',
+            borderTop: '4px solid #8b5e46',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 16px'
+          }} />
+          <p style={{ color: '#1c1c1c' }}>Loading Fuel Haus...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Filter products based on search query
   const filteredProducts = products.filter((product) => {

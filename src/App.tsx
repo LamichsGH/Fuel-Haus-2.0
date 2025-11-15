@@ -1,3 +1,4 @@
+import { Component, ReactNode } from 'react';
 import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
@@ -9,14 +10,72 @@ import Ingredients from "./pages/Ingredients";
 import Contact from "./pages/Contact";
 import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
+// App-level Error Boundary
+class ErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: any) {
+    console.error('React Error Boundary caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+          backgroundColor: '#f5efea'
+        }}>
+          <div style={{ textAlign: 'center', maxWidth: '600px' }}>
+            <h1 style={{ color: '#1c1c1c', marginBottom: '16px' }}>
+              Oops! Something went wrong
+            </h1>
+            <p style={{ color: '#666', marginBottom: '24px' }}>
+              {this.state.error?.message || 'An unexpected error occurred'}
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              style={{
+                padding: '12px 24px',
+                backgroundColor: '#8b5e46',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer'
+              }}
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
       gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false, // Reduce API calls
       refetchOnMount: true,
-      retry: 2,
+      retry: 1, // Reduce retries to avoid cascading failures
     },
   },
 });
@@ -27,24 +86,26 @@ const App = () => {
   const Router: React.ComponentType<any> = isInIframe ? HashRouter : BrowserRouter;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/product/:handle" element={<ProductDetail />} />
-            <Route path="/product-detail" element={<ProductDetail />} />
-            <Route path="/ingredients" element={<Ingredients />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/install" element={<Install />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Router>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/product/:handle" element={<ProductDetail />} />
+              <Route path="/product-detail" element={<ProductDetail />} />
+              <Route path="/ingredients" element={<Ingredients />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/install" element={<Install />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Router>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
