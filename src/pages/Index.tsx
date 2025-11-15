@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Search, Instagram, Facebook, Menu, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { scrollToSection } from "@/lib/scroll";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -159,7 +160,7 @@ export default function Index() {
                       variant="ghost" 
                       className="justify-start text-lg font-normal hover:text-primary transition-colors"
                       onClick={() => {
-                        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+                        scrollToSection('products');
                         setMobileMenuOpen(false);
                       }}
                     >
@@ -198,7 +199,7 @@ export default function Index() {
             <Button 
               variant="ghost" 
               className="text-base font-normal hover:text-primary hover:bg-transparent transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-foreground after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => scrollToSection('products')}
             >
               Shop
             </Button>
@@ -297,7 +298,7 @@ export default function Index() {
                     style={{ color: '#4a4a4a' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
-                    onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() => scrollToSection('products')}
                   >
                     Shop
                   </Button>
@@ -309,6 +310,7 @@ export default function Index() {
                     style={{ color: '#4a4a4a' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
+                    onClick={() => scrollToSection('brand-story')}
                   >
                     About
                   </Button>

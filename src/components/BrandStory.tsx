@@ -3,7 +3,7 @@ import brandStoryImage from "@/assets/brand-story-image.png";
 
 export const BrandStory = () => {
   return (
-    <section className="py-32 md:py-40 relative" style={{ backgroundColor: '#f5efea' }}>
+    <section id="brand-story" className="py-32 md:py-40 relative" style={{ backgroundColor: '#f5efea' }}>
       {/* Decorative gradient divider - creates visual break */}
       <div 
         className="absolute top-0 left-0 right-0 h-20 -mt-20" 

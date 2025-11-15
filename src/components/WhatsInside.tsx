@@ -37,7 +37,7 @@ const ingredients = [
 
 export const WhatsInside = () => {
   return (
-    <section className="py-24 relative overflow-hidden" style={{ backgroundColor: '#c7cbc1' }}>
+    <section id="whats-inside" className="py-24 relative overflow-hidden" style={{ backgroundColor: '#c7cbc1' }}>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20 animate-fade-in">
           <h2 className="text-5xl md:text-6xl mb-6 font-light tracking-tight" style={{ color: '#1c1c1c' }}>
