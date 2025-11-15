@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchProducts } from "@/lib/mockData";
+import { Product } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import { Search, Instagram, Facebook, Menu, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -7,9 +9,53 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Index() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchProducts();
+      setProducts(data || []); // Ensure fallback to empty array
+    } catch (error) {
+      console.error('Error loading products:', error);
+      setProducts([]); // Fallback to empty array
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f5efea'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '50px',
+            height: '50px',
+            border: '4px solid #d8c5b1',
+            borderTop: '4px solid #8b5e46',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 16px'
+          }} />
+          <p style={{ color: '#1c1c1c' }}>Loading Fuel Haus...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -155,17 +201,30 @@ export default function Index() {
           backgroundColor: '#f5efea'
         }}>
           <h1 style={{ color: '#1c1c1c', fontSize: '2rem', marginBottom: '20px' }}>
-            Fuel Haus - Simplified Index
+            STEP 2: Testing Data Fetching
           </h1>
           <p style={{ color: '#666', marginBottom: '30px' }}>
-            Header and basic layout working. Now testing components one by one...
+            Products loaded: {products.length} | Loading: {loading.toString()}
           </p>
           <Button 
-            onClick={() => alert('Navigation working!')}
+            onClick={() => alert(`Found ${products.length} products!`)}
             style={{ backgroundColor: '#8b5e46', color: 'white' }}
           >
-            Test Navigation
+            Test Data Loading ({products.length} products)
           </Button>
+          
+          {products.length > 0 && (
+            <div style={{ marginTop: '20px', textAlign: 'left', maxWidth: '600px', margin: '20px auto' }}>
+              <h3 style={{ color: '#1c1c1c', marginBottom: '10px' }}>Products Found:</h3>
+              {products.slice(0, 3).map((product, index) => (
+                <div key={index} style={{ padding: '10px', background: 'rgba(255,255,255,0.5)', margin: '5px 0', borderRadius: '5px' }}>
+                  <strong>{product.title}</strong>
+                  <br />
+                  <small>{product.description?.substring(0, 100)}...</small>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
 
