@@ -234,63 +234,92 @@ export default function Index() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-secondary/10 py-16">
+      <footer className="py-16" style={{ backgroundColor: '#f5efea' }}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* Company Info */}
             <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-6">
                 <img 
                   src="/logo.png?v=4" 
                   alt="Fuel Haus" 
-                  className="h-14 w-auto object-contain"
+                  className="h-28 md:h-32 w-auto object-contain"
                 />
               </div>
-              <p className="text-muted-foreground mb-6 max-w-md">
-                Functional drinks made for rest, ritual, and nourishment. Each blend crafted to restore calm, focus, and recovery.
-              </p>
-              <div className="flex gap-3">
+              <div className="flex justify-center md:justify-start gap-3">
                 <a 
-                  href="https://instagram.com" 
+                  href="https://www.instagram.com/shopfuelhaus/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-background hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all shadow-subtle"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+                  style={{ 
+                    backgroundColor: 'rgba(139, 94, 70, 0.15)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.25)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.15)';
+                  }}
                 >
-                  <Instagram className="h-5 w-5" />
+                  <Instagram className="h-5 w-5" style={{ color: '#8b5e46' }} />
                 </a>
                 <a 
-                  href="https://facebook.com" 
+                  href="https://www.facebook.com/profile.php?id=61581968607899" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-background hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all shadow-subtle"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+                  style={{ 
+                    backgroundColor: 'rgba(139, 94, 70, 0.15)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.25)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.15)';
+                  }}
                 >
-                  <Facebook className="h-5 w-5" />
+                  <Facebook className="h-5 w-5" style={{ color: '#8b5e46' }} />
                 </a>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-medium mb-4">Quick Links</h4>
+              <h4 className="font-medium mb-4" style={{ color: '#1c1c1c' }}>
+                Quick Links
+              </h4>
               <ul className="space-y-3">
                 <li>
                   <Button 
                     variant="ghost" 
-                    className="h-auto p-0 text-muted-foreground hover:text-primary"
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
                     onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     Shop
                   </Button>
                 </li>
                 <li>
-                  <Button variant="ghost" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                  <Button 
+                    variant="ghost" 
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
+                  >
                     About
                   </Button>
                 </li>
                 <li>
                   <Button 
                     variant="ghost" 
-                    className="h-auto p-0 text-muted-foreground hover:text-primary"
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
                     onClick={() => navigate('/ingredients')}
                   >
                     Ingredients
@@ -299,7 +328,10 @@ export default function Index() {
                 <li>
                   <Button 
                     variant="ghost" 
-                    className="h-auto p-0 text-muted-foreground hover:text-primary"
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
                     onClick={() => navigate('/contact')}
                   >
                     Contact
@@ -310,25 +342,51 @@ export default function Index() {
 
             {/* Legal */}
             <div>
-              <h4 className="font-medium mb-4">Legal</h4>
+              <h4 className="font-medium mb-4" style={{ color: '#1c1c1c' }}>
+                Legal
+              </h4>
               <ul className="space-y-3">
                 <li>
-                  <Button variant="ghost" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                  <Button 
+                    variant="ghost" 
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
+                  >
                     Privacy Policy
                   </Button>
                 </li>
                 <li>
-                  <Button variant="ghost" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                  <Button 
+                    variant="ghost" 
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
+                  >
                     Terms of Service
                   </Button>
                 </li>
                 <li>
-                  <Button variant="ghost" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                  <Button 
+                    variant="ghost" 
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
+                  >
                     Shipping Policy
                   </Button>
                 </li>
                 <li>
-                  <Button variant="ghost" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                  <Button 
+                    variant="ghost" 
+                    className="h-auto p-0 hover:no-underline"
+                    style={{ color: '#4a4a4a' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#8b5e46'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a4a4a'}
+                  >
                     Refund Policy
                   </Button>
                 </li>
@@ -337,8 +395,8 @@ export default function Index() {
           </div>
 
           {/* Bottom bar */}
-          <div className="pt-8 border-t border-border text-center">
-            <p className="text-sm text-muted-foreground">
+          <div className="pt-8 border-t text-center" style={{ borderColor: '#d8c8b1' }}>
+            <p className="text-sm" style={{ color: '#6b5d52' }}>
               © {new Date().getFullYear()} Fuel Haus. All rights reserved. | Made with care for your recovery
             </p>
           </div>

@@ -58,10 +58,10 @@ export const Newsletter = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/5 to-background">
+    <section className="py-20" style={{ backgroundColor: '#d8c8b1' }}>
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <Card className="border-0 shadow-subtle rounded-xl overflow-hidden">
+          <Card className="border-0 shadow-lg rounded-2xl overflow-hidden" style={{ backgroundColor: '#f5efea' }}>
             <CardContent className="p-8 md:p-12">
               {isSuccess ? (
                 <div className="text-center animate-scale-in">
@@ -76,12 +76,12 @@ export const Newsletter = () => {
               ) : (
                 <>
                   <div className="text-center mb-8">
-                    <Mail className="h-12 w-12 mx-auto mb-4 text-primary" strokeWidth={1.5} />
-                    <h2 className="text-3xl md:text-4xl mb-4">
-                      Join Our Mailing List
+                    <Mail className="h-12 w-12 mx-auto mb-4" strokeWidth={1.5} style={{ color: '#8b5e46' }} />
+                    <h2 className="text-3xl md:text-4xl mb-4 font-semibold" style={{ color: '#1c1c1c' }}>
+                      Join The Haus
                     </h2>
-                    <p className="text-lg text-muted-foreground">
-                      Get early access to new releases
+                    <p className="text-base md:text-lg leading-relaxed max-w-xl mx-auto" style={{ color: '#4a4a4a' }}>
+                      Be first to know when new blends drop, get invited to test upcoming products, and share moments of calm with a community of recovery over rush
                     </p>
                   </div>
 
@@ -92,7 +92,12 @@ export const Newsletter = () => {
                         placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="h-12 rounded-xl border-border text-base"
+                        className="h-12 rounded-xl text-base"
+                        style={{ 
+                          backgroundColor: '#ffffff', 
+                          borderColor: '#d8c8b1',
+                          color: '#1c1c1c'
+                        }}
                         disabled={isSubmitting}
                         maxLength={255}
                       />
@@ -116,7 +121,11 @@ export const Newsletter = () => {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full h-12 rounded-xl shadow-subtle text-base"
+                      className="w-full h-12 rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                      style={{ 
+                        backgroundColor: '#8b5e46', 
+                        color: '#f5efea' 
+                      }}
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
@@ -125,32 +134,38 @@ export const Newsletter = () => {
                           Joining...
                         </>
                       ) : (
-                        "Stay in the Loop"
+                        "Step Inside The Haus"
                       )}
                     </Button>
                   </form>
 
                   {/* Social Proof */}
                   <div className="mt-8 pt-8 border-t border-border">
-                    <p className="text-center text-sm text-muted-foreground mb-4">
+                    <p className="text-center text-sm mb-4" style={{ color: '#6b5d52' }}>
                       Join 5,000+ others in The Haus community
                     </p>
                     <div className="flex justify-center gap-4">
                       <a 
-                        href="https://instagram.com" 
+                        href="https://www.instagram.com/shopfuelhaus/" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-10 h-10 rounded-full bg-secondary/30 hover:bg-secondary/50 flex items-center justify-center transition-colors"
+                        className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105"
+                        style={{ backgroundColor: 'rgba(139, 94, 70, 0.1)' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.2)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.1)'}
                       >
-                        <Instagram className="h-5 w-5 text-foreground" />
+                        <Instagram className="h-5 w-5" style={{ color: '#8b5e46' }} />
                       </a>
                       <a 
-                        href="https://facebook.com" 
+                        href="https://www.facebook.com/profile.php?id=61581968607899" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-10 h-10 rounded-full bg-secondary/30 hover:bg-secondary/50 flex items-center justify-center transition-colors"
+                        className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105"
+                        style={{ backgroundColor: 'rgba(139, 94, 70, 0.1)' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.2)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(139, 94, 70, 0.1)'}
                       >
-                        <Facebook className="h-5 w-5 text-foreground" />
+                        <Facebook className="h-5 w-5" style={{ color: '#8b5e46' }} />
                       </a>
                     </div>
                   </div>

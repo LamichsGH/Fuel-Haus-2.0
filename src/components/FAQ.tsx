@@ -35,46 +35,46 @@ const faqs = [
 
 export const FAQ = () => {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20" style={{ backgroundColor: '#f5efea' }}>
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl mb-4">
+            <h2 className="text-4xl md:text-5xl mb-4" style={{ color: '#1c1c1c' }}>
               FAQs
             </h2>
           </div>
 
-          <Card className="border-0 shadow-subtle rounded-xl overflow-hidden">
-            <CardContent className="p-6 md:p-8">
-              <Accordion type="single" collapsible className="w-full">
-                {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="border-border">
-                    <AccordionTrigger className="text-left hover:text-primary">
-                      {faq.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed">
-                      {faq.a}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </CardContent>
-          </Card>
-
-          <Card className="mt-12 border-0 bg-gradient-to-br from-primary/5 to-secondary/10 shadow-subtle rounded-xl">
-            <CardContent className="p-8 text-center">
-              <h3 className="text-2xl mb-3">Still Have Questions?</h3>
-              <p className="text-muted-foreground mb-6">
-                We're here to help. Reach out anytime.
-              </p>
-              <a 
-                href="/contact" 
-                className="inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <Card 
+                key={index}
+                className="border-0 shadow-sm rounded-xl overflow-hidden transition-shadow hover:shadow-md"
+                style={{ 
+                  backgroundColor: index % 2 === 0 ? '#d8c8b1' : '#c7cbc1'
+                }}
               >
-                Contact Us
-              </a>
-            </CardContent>
-          </Card>
+                <CardContent className="p-0">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value={`item-${index}`} className="border-0">
+                      <AccordionTrigger 
+                        className="text-left px-6 py-4 hover:no-underline"
+                        style={{ color: '#1c1c1c' }}
+                      >
+                        {faq.q}
+                      </AccordionTrigger>
+                      <AccordionContent 
+                        className="px-6 pb-4 leading-relaxed"
+                        style={{ color: '#4a4a4a' }}
+                      >
+                        {faq.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>

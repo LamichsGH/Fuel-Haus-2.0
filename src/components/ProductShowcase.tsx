@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductByHandle, formatPrice, getProductStatus } from "@/lib/shopify";
 import { ProductShowcaseSkeleton } from "@/components/ProductShowcaseSkeleton";
-import cocoaPreparation from "@/assets/cocoa-preparation.png";
+import cocoaLifestyle from "@/assets/cocoa-lifestyle.jpeg";
 
 export const ProductShowcase = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const ProductShowcase = () => {
   const productData = {
     title: product?.title || "Recovery Cocoa",
     description: product?.description || "Our Recovery Cocoa blends electrolytes with silky-smooth hot chocolate, designed to hydrate as it comforts. Made with real cocoa, mineral-rich electrolytes, and natural coconut creaminess, it restores balance — without the crash or excess sugar.",
-    image: product?.images?.[0]?.url || cocoaPreparation,
+    image: cocoaLifestyle,
     handle: product?.handle || "recovery-cocoa",
     status: getProductStatus(product),
   };
