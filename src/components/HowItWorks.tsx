@@ -1,7 +1,7 @@
-import step1 from "@/assets/how-it-works-1.png";
-import step2 from "@/assets/how-it-works-2.png";
-import step3 from "@/assets/how-it-works-3.png";
-import step4 from "@/assets/how-it-works-4.png";
+import step1 from "@/assets/how-it-works-1-updated.png";
+import step2 from "@/assets/how-it-works-2-updated.png";
+import step3 from "@/assets/how-it-works-3-updated.png";
+import step4 from "@/assets/how-it-works-4-updated.png";
 
 const steps = [
   {
