@@ -139,7 +139,18 @@ export const CartDrawer = () => {
                             variant="outline"
                             size="icon"
                             className="h-6 w-6"
-                            onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                            onClick={() => {
+                              // Basic max quantity check - can be enhanced with real inventory data
+                              const maxAllowed = 10;
+                              if (item.quantity >= maxAllowed) {
+                                toast.error('Maximum quantity reached', {
+                                  description: `You cannot add more than ${maxAllowed} of this item.`
+                                });
+                                return;
+                              }
+                              updateQuantity(item.variantId, item.quantity + 1);
+                            }}
+                            disabled={item.quantity >= 10}
                           >
                             <Plus className="h-3 w-3" />
                           </Button>

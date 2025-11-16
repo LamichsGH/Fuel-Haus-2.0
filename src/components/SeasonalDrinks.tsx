@@ -286,7 +286,7 @@ export const SeasonalDrinks = () => {
                         }}
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" />
-                        Add to Cart - {formatPrice(drink.price)}
+                        Add to Cart - {formatPrice(drink.price, 'GBP')}
                       </Button>
                     )}
 

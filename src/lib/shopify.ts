@@ -37,6 +37,7 @@ export interface ShopifyProduct {
             currencyCode: string;
           };
           availableForSale: boolean;
+          quantityAvailable: number;
           selectedOptions: Array<{
             name: string;
             value: string;
@@ -85,6 +86,7 @@ const STOREFRONT_QUERY = `
                   currencyCode
                 }
                 availableForSale
+                quantityAvailable
                 selectedOptions {
                   name
                   value
@@ -133,6 +135,7 @@ const PRODUCT_BY_HANDLE_QUERY = `
               currencyCode
             }
             availableForSale
+            quantityAvailable
             selectedOptions {
               name
               value
@@ -382,9 +385,9 @@ export function getProductPrice(product: any): number | null {
 }
 
 // Format price for display
-export function formatPrice(amount: number | null, currency = 'USD'): string {
+export function formatPrice(amount: number | null, currency = 'GBP'): string {
   if (!amount) return 'Price unavailable';
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency,
   }).format(amount);
@@ -394,4 +397,12 @@ export function formatPrice(amount: number | null, currency = 'USD'): string {
 export function getProductVariantId(product: any): string | null {
   const variant = getFirstAvailableVariant(product) || product?.variants?.[0];
   return variant?.id || null;
+}
+
+// Get available quantity for a product variant
+export function getAvailableQuantity(product: any): number {
+  if (!product) return 0;
+  
+  const variant = getFirstAvailableVariant(product) || product?.variants?.[0];
+  return variant?.quantityAvailable ?? 0;
 }

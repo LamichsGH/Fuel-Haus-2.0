@@ -23,6 +23,7 @@ export interface Product {
       currencyCode: string;
     };
     availableForSale: boolean;
+    quantityAvailable: number;
     selectedOptions: Array<{
       name: string;
       value: string;

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ShoppingCart, Instagram, Facebook } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductByHandle, getProductStatus, getProductPrice, getProductVariantId, formatPrice } from "@/lib/shopify";
+import { fetchProductByHandle, getProductStatus, getProductPrice, getProductVariantId, formatPrice, getAvailableQuantity } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { WhatsInside } from "@/components/WhatsInside";
 import { SocialProof } from "@/components/SocialProof";
 import { FAQ } from "@/components/FAQ";
-import cocoaLifestyle from "@/assets/cocoa-lifestyle-new.jpg";
+import cocoaLifestyle from "@/assets/cocoa-lifestyle-new.jpg?v=2";
 import cocoaPreparation from "@/assets/cocoa-preparation.png";
 import ingredientCocoa from "@/assets/ingredient-cocoa.jpg";
 import ingredientCoconut from "@/assets/ingredient-coconut.jpg";
@@ -28,10 +28,11 @@ export default function ProductDetail() {
 
   // Fetch product from Shopify
   const { data: product, isLoading, error } = useQuery({
-    queryKey: ['product', handle],
+    queryKey: ['product', handle || 'recovery-cocoa'],
     queryFn: () => fetchProductByHandle(handle || 'recovery-cocoa'),
-    enabled: !!handle,
+    enabled: true, // Always try to fetch, using fallback handle if needed
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    retry: 1, // Only retry once to avoid long loading times
   });
 
   // Fallback product data for Recovery Cocoa
@@ -57,12 +58,42 @@ export default function ProductDetail() {
 
   // Use Shopify data if available, otherwise fallback
   const productData = product || fallbackProduct;
-  const productStatus = getProductStatus(product);
+  const productStatus = getProductStatus(product) || 'available'; // Default to available if no Shopify data
   const productPrice = getProductPrice(product) || 21.99;
   const variantId = getProductVariantId(product) || "gid://shopify/ProductVariant/recovery-cocoa-default";
+  
+  // Inventory management
+  const availableStock = getAvailableQuantity(product);
+  const maxQuantity = Math.min(availableStock > 0 ? availableStock : 10, 10); // Cap at 10 or available stock
 
   const handleAddToCart = () => {
     if (!productData) return;
+    
+    // Check if enough stock is available (fallback to allowing if no inventory data)
+    if (availableStock > 0 && quantity > availableStock) {
+      toast.error(`Only ${availableStock} item${availableStock !== 1 ? 's' : ''} available in stock`, {
+        description: `You're trying to add ${quantity} but we only have ${availableStock} in stock.`
+      });
+      setQuantity(Math.min(quantity, availableStock));
+      return;
+    }
+
+    // Check current cart quantity
+    const currentCartQuantity = useCartStore.getState().items
+      .filter(item => item.variantId === variantId)
+      .reduce((sum, item) => sum + item.quantity, 0);
+    
+    const totalQuantity = currentCartQuantity + quantity;
+    
+    if (availableStock > 0 && totalQuantity > availableStock) {
+      const canAdd = availableStock - currentCartQuantity;
+      toast.error(`Cannot add ${quantity} more items`, {
+        description: canAdd > 0 
+          ? `You already have ${currentCartQuantity} in your cart. You can only add ${canAdd} more.`
+          : `You already have the maximum (${availableStock}) in your cart.`
+      });
+      return;
+    }
 
     const cartItem = {
       id: variantId,
@@ -75,7 +106,7 @@ export default function ProductDetail() {
     };
 
     addItem(cartItem);
-    toast.success(`Added ${quantity} ${productData.title} to cart`, { position: 'top-center' });
+    toast.success(`Added ${quantity} ${productData.title} to cart!`);
   };
 
   if (isLoading) {
@@ -86,23 +117,9 @@ export default function ProductDetail() {
     );
   }
 
-  if (error && !handle) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f5efea' }}>
-        <div className="text-center">
-          <p className="mb-4" style={{ color: '#6b5d52' }}>Product not found</p>
-          <Link to="/">
-            <Button 
-              variant="outline" 
-              style={{ borderColor: '#d8c8b1', color: '#4a4a4a' }}
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Store
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
+  // Only show error if we have no fallback data and a critical error
+  if (error && !product && !fallbackProduct) {
+    console.warn('Shopify product fetch failed, but fallback available:', error);
   }
 
   return (
@@ -204,6 +221,25 @@ export default function ProductDetail() {
                   )}
                 </div>
 
+                {/* Stock Availability */}
+                {availableStock > 0 && (
+                  <p className="text-sm" style={{ 
+                    color: availableStock <= 3 ? '#d97706' : '#f5efea',
+                    fontWeight: availableStock <= 3 ? 600 : 400,
+                    opacity: availableStock <= 3 ? 1 : 0.8
+                  }}>
+                    {availableStock <= 3 
+                      ? `Only ${availableStock} left in stock!` 
+                      : `${availableStock} available`}
+                  </p>
+                )}
+
+                {availableStock === 0 && product && (
+                  <p className="text-sm font-semibold" style={{ color: '#dc2626' }}>
+                    Out of stock
+                  </p>
+                )}
+
                 {/* Product Status */}
                 {productStatus !== 'available' && (
                   <div className="inline-block px-4 py-2 rounded-lg w-fit" 
@@ -271,7 +307,7 @@ export default function ProductDetail() {
                     Number of Bags
                   </h3>
                   <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map((num) => (
+                    {Array.from({ length: Math.min(maxQuantity, 5) }, (_, i) => i + 1).map((num) => (
                       <Button
                         key={num}
                         variant={quantity === num ? "default" : "outline"}
@@ -296,10 +332,11 @@ export default function ProductDetail() {
                   className="w-full rounded-xl font-semibold hover:opacity-90 transition-opacity"
                   style={{ backgroundColor: '#f5efea', color: '#1c1c1c' }}
                   onClick={handleAddToCart}
-                  disabled={productStatus !== 'available'}
+                  disabled={productStatus !== 'available' || (availableStock === 0 && !!product)}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
-                  {productStatus === 'available' ? 'Add to Cart' : 
+                  {(availableStock === 0 && product) ? 'Out of Stock' :
+                   productStatus === 'available' ? 'Add to Cart' : 
                    productStatus === 'sold-out' ? 'Currently Sold Out' : 
                    'Coming Soon'}
                 </Button>
