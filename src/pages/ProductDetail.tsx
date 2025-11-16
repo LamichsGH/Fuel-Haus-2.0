@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ShoppingCart, Instagram, Facebook } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductByHandle, getProductStatus, getProductPrice, getProductVariantId, formatPrice, getAvailableQuantity } from "@/lib/shopify";
+import { fetchProductByHandle, getProductStatus, getProductPrice, getProductVariantId, formatPrice } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -62,38 +62,9 @@ export default function ProductDetail() {
   const productPrice = getProductPrice(product) || 21.99;
   const variantId = getProductVariantId(product) || "gid://shopify/ProductVariant/recovery-cocoa-default";
   
-  // Inventory management
-  const availableStock = getAvailableQuantity(product);
-  const maxQuantity = Math.min(availableStock > 0 ? availableStock : 10, 10); // Cap at 10 or available stock
 
   const handleAddToCart = () => {
     if (!productData) return;
-    
-    // Check if enough stock is available (fallback to allowing if no inventory data)
-    if (availableStock > 0 && quantity > availableStock) {
-      toast.error(`Only ${availableStock} item${availableStock !== 1 ? 's' : ''} available in stock`, {
-        description: `You're trying to add ${quantity} but we only have ${availableStock} in stock.`
-      });
-      setQuantity(Math.min(quantity, availableStock));
-      return;
-    }
-
-    // Check current cart quantity
-    const currentCartQuantity = useCartStore.getState().items
-      .filter(item => item.variantId === variantId)
-      .reduce((sum, item) => sum + item.quantity, 0);
-    
-    const totalQuantity = currentCartQuantity + quantity;
-    
-    if (availableStock > 0 && totalQuantity > availableStock) {
-      const canAdd = availableStock - currentCartQuantity;
-      toast.error(`Cannot add ${quantity} more items`, {
-        description: canAdd > 0 
-          ? `You already have ${currentCartQuantity} in your cart. You can only add ${canAdd} more.`
-          : `You already have the maximum (${availableStock}) in your cart.`
-      });
-      return;
-    }
 
     const cartItem = {
       id: variantId,
@@ -221,24 +192,6 @@ export default function ProductDetail() {
                   )}
                 </div>
 
-                {/* Stock Availability */}
-                {availableStock > 0 && (
-                  <p className="text-sm" style={{ 
-                    color: availableStock <= 3 ? '#d97706' : '#f5efea',
-                    fontWeight: availableStock <= 3 ? 600 : 400,
-                    opacity: availableStock <= 3 ? 1 : 0.8
-                  }}>
-                    {availableStock <= 3 
-                      ? `Only ${availableStock} left in stock!` 
-                      : `${availableStock} available`}
-                  </p>
-                )}
-
-                {availableStock === 0 && product && (
-                  <p className="text-sm font-semibold" style={{ color: '#dc2626' }}>
-                    Out of stock
-                  </p>
-                )}
 
                 {/* Product Status */}
                 {productStatus !== 'available' && (
@@ -307,7 +260,7 @@ export default function ProductDetail() {
                     Number of Bags
                   </h3>
                   <div className="flex gap-2">
-                    {Array.from({ length: Math.min(maxQuantity, 5) }, (_, i) => i + 1).map((num) => (
+                    {[1, 2, 3, 4, 5].map((num) => (
                       <Button
                         key={num}
                         variant={quantity === num ? "default" : "outline"}
@@ -332,11 +285,10 @@ export default function ProductDetail() {
                   className="w-full rounded-xl font-semibold hover:opacity-90 transition-opacity"
                   style={{ backgroundColor: '#f5efea', color: '#1c1c1c' }}
                   onClick={handleAddToCart}
-                  disabled={productStatus !== 'available' || (availableStock === 0 && !!product)}
+                  disabled={productStatus !== 'available'}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
-                  {(availableStock === 0 && product) ? 'Out of Stock' :
-                   productStatus === 'available' ? 'Add to Cart' : 
+                  {productStatus === 'available' ? 'Add to Cart' : 
                    productStatus === 'sold-out' ? 'Currently Sold Out' : 
                    'Coming Soon'}
                 </Button>
